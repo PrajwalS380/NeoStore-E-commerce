@@ -1,0 +1,96 @@
+<!-- src/main/resources/templates/home.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NeoStore | Home</title>
+  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+  <link rel="stylesheet" th:href="@{/css/animations.css}">
+  <script defer th:src="@{/js/neostore.js}"></script>
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <main>
+    <section class="hero-banner neon-shimmer">
+      <div class="hero-content">
+        <div class="hero-left">
+          <h1 th:text="${bannerTitle}">Singles' Day</h1>
+          <p class="subtitle" th:text="${bannerSubtitle}">ENDS 11TH NOV</p>
+          <p class="cta" th:text="${bannerCta}">EXTRA 25% OFF ON EVERYTHING*</p>
+          <p class="note" th:text="${bannerNote}">Discount auto-applied at checkout</p>
+
+          <div class="countdown" id="countdown">
+            <span class="unit"><b>00</b> HOURS</span>
+            <span class="unit"><b>07</b> MINUTES</span>
+            <span class="unit"><b>11</b> SECONDS</span>
+          </div>
+
+          <div class="cta-buttons">
+            <a class="btn hollow" href="/category/MEN">FOR HIM</a>
+            <a class="btn hollow" href="/category/WOMEN">FOR HER</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <img src="/img/hero-bg.jpg" alt="Singles' Day">
+        </div>
+      </div>
+    </section>
+
+    <!-- Compact cards showcase -->
+    <section class="grid-showcase container card-grid">
+      <div class="card">
+        <div class="card-media"><img src="/img/men.jpg" alt="Men"></div>
+        <div class="card-body">
+          <h3>Men</h3>
+          <a class="btn primary" href="/category/MEN">Shop Men</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="/img/women.jpg" alt="Women"></div>
+        <div class="card-body">
+          <h3>Women</h3>
+          <a class="btn primary" href="/category/WOMEN">Shop Women</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="/img/footwear.jpg" alt="Footwear"></div>
+        <div class="card-body">
+          <h3>Footwear</h3>
+          <a class="btn primary" href="/category/FOOTWEAR">Shop Footwear</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="/img/kids.jpg" alt="Kids"></div>
+        <div class="card-body">
+          <h3>Kids</h3>
+          <a class="btn primary" href="/category/KIDS">Shop Kids</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="/img/lifestyle.jpg" alt="Lifestyle"></div>
+        <div class="card-body">
+          <h3>Lifestyle</h3>
+          <a class="btn primary" href="/category/LIFESTYLE">Shop Lifestyle</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-media"><img src="/img/genz.jpg" alt="GenZ"></div>
+        <div class="card-body">
+          <h3>GenZ</h3>
+          <a class="btn primary" href="/category/GENZ">Shop GenZ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- src/main/resources/templates/wishlist.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NeoStore | Wishlist</title>
+  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <main class="container">
+    <section class="card-grid">
+      <div class="product-card" th:each="wi : ${items}">
+        <div class="product-media">
+          <img th:src="${wi.product.imageUrl != null ? wi.product.imageUrl : '/img/placeholders/product-default.jpg'}" th:alt="${wi.product.name}">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title" th:text="${wi.product.name}">Name</h3>
+          <div class="product-meta">
+            <span class="price" th:text="'₹' + ${wi.product.price}">₹0</span>
+            <span class="brand" th:text="${wi.product.brand}">NeoStore</span>
+          </div>
+          <div class="product-actions">
+            <form th:action="@{|/wishlist/move-to-cart/${wi.product.id}|}" method="post">
+              <button class="btn primary">Add</button>
+            </form>
+            <form th:action="@{|/wishlist/remove/${wi.id}|}" method="post">
+              <button class="btn ghost">Remove</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

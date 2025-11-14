@@ -1,0 +1,9 @@
+/* src/main/resources/static/css/animations.css */
+.neon-shimmer { animation: shimmer 6s infinite linear; }
+@keyframes shimmer {
+  0% { filter: hue-rotate(0deg) saturate(1.2); }
+  50% { filter: hue-rotate(40deg) saturate(1.4); }
+  100% { filter: hue-rotate(0deg) saturate(1.2); }
+}
+.fade-in { animation: fadeIn 600ms ease forwards; opacity: 0; }
+@keyframes fadeIn { to { opacity: 1; } }

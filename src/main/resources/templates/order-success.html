@@ -1,0 +1,17 @@
+<!-- src/main/resources/templates/order-success.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>NeoStore | Order Success</title>
+  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+  <section class="success glassy">
+    <h2>Thank you! Your order <span th:text="${order.id}">#</span> is confirmed.</h2>
+    <p>Total: ₹<span th:text="${order.total}">0</span></p>
+    <a class="btn primary" href="/">Continue Shopping</a>
+  </section>
+  <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

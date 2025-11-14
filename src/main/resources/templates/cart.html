@@ -1,0 +1,39 @@
+<!-- src/main/resources/templates/cart.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NeoStore | Cart</title>
+  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <main>
+    <section class="container cart-layout">
+      <div class="cart-items">
+        <div class="cart-item card" th:each="ci : ${items}">
+          <div class="cart-media">
+            <img th:src="${ci.product.imageUrl}" th:alt="${ci.product.name}">
+          </div>
+          <div class="cart-body">
+            <h3 th:text="${ci.product.name}">Product</h3>
+            <p th:text="'Qty: ' + ${ci.quantity}">Qty</p>
+            <p th:text="'Price: ₹' + ${ci.product.price}">Price</p>
+            <p class="line-total" th:text="'Line Total: ₹' + ${ci.lineTotal}">Line Total</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="cart-summary glassy">
+        <h3>Order Summary</h3>
+        <p>Total: <strong th:text="'₹' + ${total}">₹0</strong></p>
+        <a class="btn primary large" href="/payment/checkout">Proceed to Pay</a>
+      </aside>
+    </section>
+  </main>
+
+  <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

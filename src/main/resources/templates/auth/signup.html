@@ -1,0 +1,22 @@
+<!-- src/main/resources/templates/auth/signup.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>NeoStore | Sign up</title>
+  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<section class="auth-card">
+  <h2>Create account</h2>
+  <form th:action="@{/auth/signup}" method="post" th:object="${signupRequest}">
+    <input type="text" th:field="*{name}" placeholder="Full name" required>
+    <input type="email" th:field="*{email}" placeholder="Email" required>
+    <input type="password" th:field="*{password}" placeholder="Password" required>
+    <button class="btn primary">Sign up</button>
+  </form>
+  <p>Already have an account? <a href="/auth/signin">Sign in</a></p>
+</section>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

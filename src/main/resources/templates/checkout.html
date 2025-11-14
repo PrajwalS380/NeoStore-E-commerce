@@ -1,0 +1,92 @@
+<!-- src/main/resources/templates/checkout.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NeoStore | Checkout</title>
+  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <main class="container">
+    <section class="checkout-card glassy">
+      <h2>Pay ₹<span th:text="${amountRupees}">0</span></h2>
+      <button id="rzp-button1" class="btn primary large">Pay Now</button>
+    </section>
+  </main>
+
+  <form id="pay-success" th:action="@{/payment/success}" method="post" style="display:none;">
+    <input name="razorpay_payment_id" id="razorpay_payment_id">
+    <input name="razorpay_order_id" id="razorpay_order_id">
+    <input name="razorpay_signature" id="razorpay_signature">
+  </form>
+
+  <!-- Use Thymeleaf JS inlining so variables are rendered correctly -->
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    const RAZORPAY_KEY_ID = /*[[${razorpayKeyId}]]*/ 'rzp_test_dummy';
+    const RAZORPAY_ORDER_ID = /*[[${razorpayOrderId}]]*/ '';
+    const AMOUNT_PAISE = /*[[${amountPaise}]]*/ 0;
+    const AMOUNT_RUPEES = /*[[${amountRupees}]]*/ 0;
+    /*]]>*/
+  </script>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    // quick validation in console to help debug
+    console.log('Razorpay key:', RAZORPAY_KEY_ID);
+    console.log('Order id:', RAZORPAY_ORDER_ID);
+    console.log('Amount (paise):', AMOUNT_PAISE);
+
+    // If checkout.js didn't load, Razorpay will be undefined
+    if (typeof Razorpay === 'undefined') {
+      console.error('Razorpay checkout script not loaded. Check network and CSP.');
+    }
+
+    const options = {
+      key: RAZORPAY_KEY_ID,
+      amount: AMOUNT_PAISE, // amount in paise
+      currency: "INR",
+      name: "NeoStore",
+      description: "Order Payment",
+      order_id: RAZORPAY_ORDER_ID,
+      handler: function (response){
+        document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+        document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+        document.getElementById('razorpay_signature').value = response.razorpay_signature;
+        document.getElementById('pay-success').submit();
+      },
+      modal: {
+        escape: true,
+        ondismiss: function() {
+          console.log('Razorpay modal closed');
+        }
+      },
+      theme: { color: "#7c3aed" }
+    };
+
+    // create instance only when script is available
+    let rzp1 = null;
+    document.getElementById('rzp-button1').addEventListener('click', function(e){
+      e.preventDefault();
+      if (typeof Razorpay === 'undefined') {
+        alert('Payment service unavailable. Check console for errors.');
+        return;
+      }
+      try {
+        rzp1 = new Razorpay(options);
+        rzp1.open();
+      } catch (err) {
+        console.error('Error opening Razorpay:', err);
+        alert('Unable to open payment window. See console for details.');
+      }
+    });
+    /*]]>*/
+  </script>
+
+  <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
