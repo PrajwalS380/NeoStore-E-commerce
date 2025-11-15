@@ -1,13 +1,17 @@
-<!-- src/main/resources/templates/fragments/header.html -->
 <header class="ns-header">
   <div class="ns-topbar">FREE RETURNS AND EXCHANGES.</div>
 
-  <div class="ns-nav">
+  <div class="ns-nav" style="display:flex;justify-content:space-between;align-items:center;padding:16px 32px;flex-wrap:wrap">
+    
+    <!-- 🔷 Logo -->
     <div class="ns-brand">
-      <a href="/" class="logo">NeoStore</a>
+      <a href="/" class="logo" style="text-decoration:none;color:#fff;font-size:1.6rem;font-weight:bold">
+        🛍️ NeoStore
+      </a>
     </div>
 
-    <nav class="ns-menu" role="navigation" aria-label="Main navigation">
+    <!-- 🔷 Navigation menu -->
+    <nav class="ns-menu" role="navigation" aria-label="Main navigation" style="display:flex;gap:24px;flex-wrap:wrap">
       <a href="/category/MEN">MEN</a>
       <a href="/category/WOMEN">WOMEN</a>
       <a href="/category/FOOTWEAR">FOOTWEAR</a>
@@ -16,11 +20,20 @@
       <a href="/category/GENZ">GENZ</a>
     </nav>
 
-    <div class="ns-icons" role="region" aria-label="icons">
-      <a href="/search" class="icon icon-search" title="Search" aria-label="Search"></a>
-      <a href="/wishlist" class="icon icon-heart" title="Wishlist" aria-label="Wishlist"></a>
-      <a href="/cart" class="icon icon-cart" title="Cart" aria-label="Cart"></a>
-      <a href="/auth/signin" class="icon icon-user" title="Profile" aria-label="Profile"></a>
+    <!-- 🔷 Icon links (Unicode-based) -->
+    <div class="ns-icons" role="region" aria-label="User actions" style="display:flex;gap:24px;align-items:center">
+      <a href="/cart" title="Cart" aria-label="Cart" style="text-decoration:none;color:#fff;text-align:center">
+        <div style="font-size:1.2rem">🛒</div>
+        <div style="font-size:0.8rem">Cart</div>
+      </a>
+      <a href="/wishlist" title="Wishlist" aria-label="Wishlist" style="text-decoration:none;color:#fff;text-align:center">
+        <div style="font-size:1.2rem">❤️</div>
+        <div style="font-size:0.8rem">Wishlist</div>
+      </a>
+      <a href="/auth/signin" title="Profile" aria-label="Profile" style="text-decoration:none;color:#fff;text-align:center">
+        <div style="font-size:1.2rem">👤</div>
+        <div style="font-size:0.8rem">Profile</div>
+      </a>
     </div>
   </div>
 </header>

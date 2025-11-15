@@ -43,4 +43,12 @@ public class WishlistController {
     wishlistService.remove(user, productId);
     return "redirect:/cart";
   }
+
+  // ✅ FIXED: path should be "/remove/{id}" not "/wishlist/remove/{id}"
+  @PostMapping("/remove/{wishlistItemId}")
+  public String remove(@AuthenticationPrincipal User user, @PathVariable Long wishlistItemId) {
+    if (user == null) return "redirect:/auth/signin";
+    wishlistService.removeByIdAndUser(wishlistItemId, user);
+    return "redirect:/wishlist";
+  }
 }

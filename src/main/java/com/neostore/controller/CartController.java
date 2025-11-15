@@ -42,7 +42,6 @@ public class CartController {
 
   @PostMapping("/remove/{cartItemId}")
   public String remove(@AuthenticationPrincipal User user, @PathVariable Long cartItemId) {
-    if (user == null) return "redirect:/auth/signin";
     cartService.removeByIdAndUser(cartItemId, user);
     return "redirect:/cart";
   }
@@ -51,9 +50,8 @@ public class CartController {
   public String updateQuantity(@AuthenticationPrincipal User user,
                                @PathVariable Long cartItemId,
                                @RequestParam int quantity) {
-    if (user == null) return "redirect:/auth/signin";
-    if (quantity < 1) quantity = 1;
     cartService.updateQuantity(cartItemId, user, quantity);
     return "redirect:/cart";
   }
+
 }

@@ -1,40 +1,58 @@
-<!-- src/main/resources/templates/wishlist.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NeoStore | Wishlist</title>
-  <link rel="stylesheet" th:href="@{/css/neostore.css}">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NeoStore | Wishlist</title>
+<link rel="stylesheet" th:href="@{/css/neostore.css}">
+<script defer th:src="@{/js/neostore.js}"></script>
 </head>
 <body>
-  <div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header"></div>
 
-  <main class="container">
-    <section class="card-grid">
-      <div class="product-card" th:each="wi : ${items}">
-        <div class="product-media">
-          <img th:src="${wi.product.imageUrl != null ? wi.product.imageUrl : '/img/placeholders/product-default.jpg'}" th:alt="${wi.product.name}">
-        </div>
-        <div class="product-body">
-          <h3 class="product-title" th:text="${wi.product.name}">Name</h3>
-          <div class="product-meta">
-            <span class="price" th:text="'₹' + ${wi.product.price}">₹0</span>
-            <span class="brand" th:text="${wi.product.brand}">NeoStore</span>
-          </div>
-          <div class="product-actions">
-            <form th:action="@{|/wishlist/move-to-cart/${wi.product.id}|}" method="post">
-              <button class="btn primary">Add</button>
-            </form>
-            <form th:action="@{|/wishlist/remove/${wi.id}|}" method="post">
-              <button class="btn ghost">Remove</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+	<main class="container">
+		<section class="card-grid">
+			<div class="product-card" th:each="wi : ${items}">
+				<div class="product-media">
+					<img
+						th:src="${wi.product.imageUrl != null ? wi.product.imageUrl : '/img/placeholders/product-default.jpg'}"
+						th:alt="${wi.product.name}">
+				</div>
 
-  <div th:replace="fragments/footer :: footer"></div>
+				<div class="product-body">
+					<h3 class="product-title" th:text="${wi.product.name}">Name</h3>
+
+					<div class="product-meta">
+						<span class="price" th:text="'₹' + ${wi.product.price}">₹0</span>
+						<span class="brand" th:text="${wi.product.brand}">NeoStore</span>
+					</div>
+
+					<div class="product-actions">
+						<!-- Add to Cart -->
+						<form th:action="@{|/wishlist/move-to-cart/${wi.product.id}|}"
+							method="post">
+							<div th:if="${_csrf != null}">
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" />
+							</div>
+							<button class="btn primary" type="submit">Add</button>
+						</form>
+
+						<!-- Remove from Wishlist -->
+						<form th:action="@{|/wishlist/remove/${wi.id}|}" method="post">
+							<div th:if="${_csrf != null}">
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" />
+							</div>
+							<button class="btn ghost" type="submit">Remove</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -66,9 +66,8 @@ public class CartService {
 
   @Transactional
   public void removeByIdAndUser(Long cartItemId, User user) {
-    if (user == null || cartItemId == null) return;
     cartItemRepository.findById(cartItemId).ifPresent(ci -> {
-      if (ci.getUser() != null && ci.getUser().getId().equals(user.getId())) {
+      if (ci.getUser().getId().equals(user.getId())) {
         cartItemRepository.delete(ci);
       }
     });
@@ -76,16 +75,15 @@ public class CartService {
 
   @Transactional
   public void updateQuantity(Long cartItemId, User user, int quantity) {
-    if (user == null || cartItemId == null || quantity < 1) return;
     cartItemRepository.findById(cartItemId).ifPresent(ci -> {
-      if (ci.getUser() != null && ci.getUser().getId().equals(user.getId())) {
+      if (ci.getUser().getId().equals(user.getId()) && quantity > 0) {
         ci.setQuantity(quantity);
         ci.setLineTotal(ci.getProduct().getPrice().multiply(new BigDecimal(quantity)));
-        ci.setUpdatedAt(LocalDateTime.now());
         cartItemRepository.save(ci);
       }
     });
   }
+
 
   /**
    * Clear all cart items for the given user.

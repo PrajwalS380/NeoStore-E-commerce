@@ -5,6 +5,8 @@ import com.neostore.entity.Product;
 import com.neostore.entity.User;
 import com.neostore.entity.WishlistItem;
 import com.neostore.repo.WishlistItemRepository;
+
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -30,5 +32,16 @@ public class WishlistService {
     wishlistRepo.findByUserAndProductId(user, productId).ifPresent(wishlistRepo::delete);
   }
 
-  public List<WishlistItem> list(User user) { return wishlistRepo.findByUser(user); }
+  public List<WishlistItem> list(User user) {
+    return wishlistRepo.findByUser(user);
+  }
+
+  @Transactional
+  public void removeByIdAndUser(Long wishlistItemId, User user) {
+    wishlistRepo.findById(wishlistItemId).ifPresent(wi -> {
+      if (wi.getUser().getId().equals(user.getId())) {
+        wishlistRepo.delete(wi);
+      }
+    });
+  }
 }
